@@ -24,24 +24,23 @@
 
 </table>
 
+<% if @book.errors.any? %>
+  <%= @book.errors.count %> errors prohibited this book from being saved:
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <h2>New book</h2>
-<%= form_with model: Book.new do |f| %>
-<form class="new_book" id="new_book" action="/books" accept-charset="UTF-8" method="post">
-  <input name="utf8" type="hidden" value="✔︎">
-  <input type="hidden" name="authenticity_token" value="">
-   <div class="field">
-     <label for="book_title">Title</label>
-     <input class="book_title" type="text" name="book[title]" id="book_title">
-   </div>
-  <div class="filed">
-    <label for="book_body">Body</label>
-    <textarea class="book_body" name="book[body]" id="book_body">
-    </textarea>
+<!-- form_with部分 -->
+<%= form_with model: @book do |f| %>
+  <h4>Title</h4>
+  <%= f.text_field :title %>
 
-    </div>
-    <div class="actions">
-      <input type="submit" name="commit" value="Create Book" date-disable-with="Create Book">
-  <% end %>
-    </div>
+  <h4>Body</h4>
+  <%= f.text_area :body %>
 
-</form>
+  <%= f.submit 'Create Book' %>
+<% end %>
