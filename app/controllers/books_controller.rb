@@ -32,8 +32,7 @@ class BooksController < ApplicationController
 
  def update
      @book = Book.find(params[:id])
-    @book = Book.new(book_params)
-    if @book.save
+    if @book.update(book_params)
       redirect_to book_path(@book.id),notice: "Book was successfully created."
     else
       render :edit
